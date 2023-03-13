@@ -1,0 +1,75 @@
+﻿@model DoAn_Web_SellClothes.Models.Account
+@{
+    ViewBag.Title = "AccountInformation";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="bgAccountInformation ">
+    <div class="container mx-auto shadow py-4 px-4">
+        <div class="body-content">
+            <h2 class="text-left">Account information</h2>
+
+            @using (Html.BeginForm())
+            {
+                @Html.ValidationSummary(true)
+                <br />
+                <div style="color:green">
+                    <h6>@ViewData["Info"]</h6>
+                </div>
+                <div style="color:red">
+                    <h6>@ViewBag.Error</h6>
+                </div>
+
+                <div class="row mt-5">
+                    <div class="col-md-6 pl-lg-5">
+                        <div class="group-infor">
+                            <h6>Tên người dùng</h6>
+                            <input id="nameCustomer" type="text" class="" name="fullname" value="@Model.FullName" required />
+                        </div>
+                        <div class="group-infor">
+                            <h6>Mail</h6>
+                            <input id="mailCustomer" type="email" class="" name="email" value="@Model.Email" required />
+                        </div>
+                        <div class="group-infor">
+                            <h6>Số điện thoại</h6>
+                            <input id="phonenumberCustomer" type="tel" class="" name="phone_number" value="@Model.PhoneNumber" required />
+                        </div>
+                        <div class="group-infor">
+                            <h6>Địa chỉ</h6>
+                            <input id="addressCustomer" type="text" class="" name="address" value="@Model.AddressUser" required />
+                        </div>
+                    </div>
+                    <div class="col-md-6 pl-lg-5">
+
+                        <div class="group-infor">
+
+                            <h6>Đổi mật khẩu</h6>
+                            <div class="input-box">
+                                <h6>Mật khẩu cũ</h6>
+                                <input id="addresCustomer" type="password" class="" name="oldpass" />
+                            </div>
+                            <div class="input-box">
+                                <h6>Mật khẩu mới</h6>
+                                <input id="addresCustomer" type="password" class="" name="newpass" />
+                            </div>
+                            <div class="input-box">
+                                <h6>Nhập lại mật khẩu mới</h6>
+                                <input id="addresCustomer" type="password" class="" name="renewpass" />
+                            </div>
+                        </div>
+
+                        <div class="group-button d-flex justify-content-between">
+
+                            <input class="shadow-sm" type="submit" value="Lưu" />
+                            <a class="shadow-sm " href="@Url.Action("Index","Home")">Home</a>
+
+                        </div>
+                        
+                    </div>
+                </div>
+            }
+
+        </div>       
+    </div>
+</div>
+

@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="landing">
+    <div class="home-wrap">
+        <div class="home-inner"></div>
+        <div class="caption text-left">
+            <h1>Welcome to FTeam</h1>
+            <p>Fashion is like the breath of life every day and it always changes with the flow of events. You can even see a revolutionary approach in clothing. You can see and feel everything with fashion.</p>
+            <button class="btn-lg btn-shopnow shadow rounded"><a href="@Url.Action("ProductPage","Product")">Shop now</a></button>
+        </div>
+    </div>
+</div>
+
+<div>
+    <div class="jumbotron">
+        <div class="narrow text-center">
+            <div class="col-12">
+                <h3 class="heading">Sản phẩm mới</h3>
+                <div class="heading-underline"></div>
+            </div>
+            <div class="row text-center">
+                @Html.Action("SanPhamMoi", "Product")
+            </div>
+         </div>
+    </div>
+</div>

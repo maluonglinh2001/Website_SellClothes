@@ -1,0 +1,62 @@
+﻿
+@{
+    ViewBag.Title = "ReturnUrl";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if (ViewBag.message == "Thanh toán thất bại")
+{
+    <div class="container thanks-container text-center mt-5">
+        <h2>Trạng thái thanh toán: @ViewBag.message </h2>
+        <div class="row mt-5">
+            <div class="col-md-4 col-xl-3 col-12 mx-auto mb-3">
+                <a href="@Url.Action("Index","Home")" class="btn btn-outline-dark py-2">
+                    Quay lại trang chủ
+                </a>
+            </div>
+            <div class="col-md-4 col-xl-3 col-12 mx-auto">
+                <a href="@Url.Action("ProductPage","Product")" class="btn btn-outline-dark py-2">
+                    Tiếp tục mua sắm
+                </a>
+            </div>
+        </div>
+    </div>
+}
+else if (ViewBag.message == "Thông tin Request không hợp lệ")
+{
+    <div class="container thanks-container text-center mt-5">
+        <h2>Trạng thái: @ViewBag.message </h2>
+        <div class="row mt-5">
+            <div class="col-md-4 col-xl-3 col-12 mx-auto mb-3">
+                <a href="@Url.Action("Index","Home")" class="btn btn-outline-dark py-2">
+                    Quay lại trang chủ
+                </a>
+            </div>
+            <div class="col-md-4 col-xl-3 col-12 mx-auto">
+                <a href="@Url.Action("ProductPage","Product")" class="btn btn-outline-dark py-2">
+                    Tiếp tục mua sắm
+                </a>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="container thanks-container text-center mt-5">
+        <h2>Trạng thái thanh toán: @ViewBag.message </h2>
+        <h2>Cảm ơn bạn đã mua sản phẩm!</h2>
+        <h4>Mã đơn hàng của bạn là: <p>@Session["idInvoice"]</p></h4>
+        <p>Đơn hàng sẽ được giao tới bạn trong thời gian sớm nhất</p>
+        <div class="row mt-5">
+            <div class="col-md-4 col-xl-3 col-12 mx-auto mb-3">
+                <a href="@Url.Action("Index","Home")" class="btn btn-outline-dark py-2">
+                    Quay lại trang chủ
+                </a>
+            </div>
+            <div class="col-md-4 col-xl-3 col-12 mx-auto">
+                <a href="@Url.Action("ProductPage","Product")" class="btn btn-outline-dark py-2">
+                    Tiếp tục mua sắm
+                </a>
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,53 @@
+﻿@using DoAn_Web_SellClothes.Models;
+@model IEnumerable<DoAn_Web_SellClothes.Models.InvoiceDetails>
+@{
+    ViewBag.Title = "HistoryDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="history-container d-flex justify-content-center ">
+    <div class="table-content">
+        <h2>Chi tiết đơn hàng: <span>@ViewBag.idInvoice</span></h2>
+        <table class="mt-5 table text-center table-responsive">
+            <thead class="border-bottom text-left">
+                <tr>
+                    <th>&nbsp;</th>
+                    <th>Sản phẩm</th>
+                    <th>Size</th>
+                    <th>Số lượng</th>
+                    <th>Đơn giá</th>
+                    <th>Thành tiền</th>
+                </tr>
+            </thead>
+            <tbody class="text-left">
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="product-thumbnail">
+                            <img src="~/Assets/img/Clothes/@item.ImageProduct" />
+                        </td>
+                        <td class="product-name">
+                            <a href="@Url.Action("ProductDetails","Product",new {id = item.idProduct})">@item.NameProduct</a>
+                        </td>
+                        <td class="text-center">
+                            @item.SizeProduct
+                        </td>
+                        <td class="bill-total text-center">
+                            @item.Quantity
+                        </td>
+                        <td class="product-quantity">
+                            @String.Format("{0:0,0}", @item.UnitPrice)<span> VNĐ</span>
+                        </td>
+                        <td class="product-total-price">
+                            @String.Format("{0:0,0}", @item.ThanhTienInvoiceDetails)<span> VNĐ</span>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+        <p>Phí ship: 25.000 vnđ</p>
+        <a href="@Url.Action("History","History")" class="btn btn-outline-dark mt-5">Quay lại lịch sử đơn hàng</a>
+    </div>
+</div>
+

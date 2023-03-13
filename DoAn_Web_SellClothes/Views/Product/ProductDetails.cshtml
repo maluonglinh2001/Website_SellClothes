@@ -1,0 +1,134 @@
+﻿@model DoAn_Web_SellClothes.Models.Product
+@{
+    ViewBag.Title = "ProductDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var item = Model;
+}
+<div>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item ml-5"><a href="@Url.Action("Index", "Home")">Home</a></li>
+            <li class="breadcrumb-item"><a href="@Url.Action("ProductPage", "Product")">Product</a></li>
+            <li class="breadcrumb-item active" aria-current="page">@Model.NameProduct</li>
+        </ol>
+    </nav>
+    @if (Model.StatusProduct==0)
+    { 
+
+        <div class="product-details">
+            <div class="row">
+                <div class="col-md-2 col-lg-1 col-4">
+                    <ul class="list__img-small">
+                        <li>
+                            <img src="~/Assets/img/Clothes/@Model.ImageProduct" />
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-5 col-lg-4 mx-auto">
+                    <div class="imgBox">
+                        <img src="~/Assets/img/Clothes/@Model.ImageProduct" />
+                    </div>
+                </div>
+                <div class="col-md-4 mx-auto">
+                    <h1 class="name-product" style="word-wrap: break-word; white-space:normal" title="@Model.NameProduct">@Model.NameProduct</h1>
+                    <h2 class="price-product">@String.Format("{0:0,0}", @Model.PriceProduct) <span>&nbsp;VND</span></h2>
+                    <hr class="light" />
+                    <h5>Describe</h5>
+                    <p> @Model.DescribeProduct</p>
+                    <br />
+                    <input disabled class="btn btn-addtocart my-4" value="Hết hàng" />
+                    <br />
+                    <button class="btn btn-light" onclick="history.back()">Trở về</button>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        using (Html.BeginForm("ThemGioHang", "Cart", new { @idProduct = Model.IdProduct, strURL = Request.Url.ToString() }))
+        {
+            <form>
+                <div class="product-details">
+                    <div class="row">
+                        <div class="col-md-2 col-lg-1 col-4">
+                            <ul class="list__img-small">
+                                <li>
+                                    <img src="~/Assets/img/Clothes/@Model.ImageProduct" />
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-5 col-lg-4 mx-auto">
+                            <div class="imgBox">
+                                <img src="~/Assets/img/Clothes/@Model.ImageProduct" />
+                            </div>
+                        </div>
+                        <div class="col-md-4 mx-auto">
+
+                            <h1 class="name-product" style="word-wrap: break-word; white-space:normal" title="@Model.NameProduct">@Model.NameProduct</h1>
+                            <h2 class="price-product">@String.Format("{0:0,0}", @Model.PriceProduct)<span>&nbsp;VND</span></h2>
+                            <hr class="light" />
+                            <h5>Describe</h5>
+                            @Model.DescribeProduct
+                            <div class=" card-TableSize mt-3">
+                                <div class="title">Choose Product Size</div>
+                                @{
+                                    for (int i = 0; i < Model.idSize.Count(); i++)
+                                    {
+                                        if (Model.soluongton[i] != 0 && Model.soluongton[i] > 0)
+                                        {
+                                            <div class="GroupBtnSizecontent  d-flex justify-content-between">
+                                                <input type="radio" name="nameSize" value="@Model.idSize[i]">
+                                                <div class="size d-flex justify-content-between">
+                                                    <span>@Model.sizeProduct[i]</span>
+                                                    <span>@Model.soluongton[i] Sản phẩm</span>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                }
+                            </div>
+                            <br />
+                            <h5>quantity</h5>
+                            <div class="btn-quantity">
+                                <span class="minus">-</span>
+                                <span class="num">01</span>
+                                <span class="plus">+</span>
+                            </div>
+                            <input id="num" type="hidden" value="1" name="quantity" />
+                            @if (Session["sl"] != null)
+                            {
+                                <div class="sub-w3l" style="color:red">
+                                    <h6> @Session["Error1"]</h6>
+                                </div>
+                            }
+                            @if (Session["size"] == null)
+                            {
+                                <div class="sub-w3l" style="color:red">
+                                    <h6> @Session["Error"]</h6>
+                                </div>
+                            }
+                            <div>
+                                <h3>@ViewData["Error"]</h3>
+                            </div>
+                            @if (Session["User"] != null)
+                            {
+                                <input class="btn btn-addtocart my-4" id="ThemGioHang" type="submit" value="Add to cart" />
+                                <br />
+                                <button class="btn btn-light" onclick="history.back()">Trở về</button>
+
+
+                            }
+                            else
+                            {
+                                <a href="@Url.Action("LogIn", "Account")" class="btn btn-outline-warning my-4">Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng!</a>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </form>
+        }
+    }
+
+</div>
+    

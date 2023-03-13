@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewBag.Title = "LogIn";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div id="authenForm">
+    <div class="container-authenForm shadow">
+        <div class="cover">
+            <img src="~/Assets/img/authenbackgroundImage.jpg" alt="" />
+        </div>
+        <div class="form-content">
+            <div class="login-form">
+                <div class="title">Login</div>
+                @using(Html.BeginForm())
+                {
+                    <br />
+                    <div class="sub-w3l" style="color:red">
+                        <h6>@ViewData["Error"]</h6>
+                    </div>
+                    <div class="input-boxes">
+                        <div class="input-box">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" placeholder="Enter your email" name="username" required />
+                        </div>
+                        <div class="input-box">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" placeholder="Enter your password" name="password" required />
+                        </div>
+                        <div class="text"><a href="#">Forgot password?</a></div>
+                        <div class="button input-box">
+                            <input type="submit" value="Sumbit" />
+                        </div>
+
+                        <div class="text sign-up-text">
+                            Don't have an account? <a href="@Url.Action("Register", "Account")">Sigup now</a>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+

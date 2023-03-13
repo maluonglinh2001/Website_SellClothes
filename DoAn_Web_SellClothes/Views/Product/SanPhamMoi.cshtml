@@ -1,0 +1,15 @@
+﻿@model IEnumerable<DoAn_Web_SellClothes.Models.Product>
+@foreach (var item in Model)
+{
+   
+    <div class="col-md-3">
+        <a class="card" href="@Url.Action("ProductDetails","Product",new { id=item.IdProduct})">
+            <img src="~/Assets/img/Clothes/@item.ImageProduct" alt="@item.NameProduct">
+            <div class="card-body">
+                <p title="@item.NameProduct" class="name-product card-title">@item.NameProduct</p>
+                <p class="price-product card-text">@String.Format("{0:0,0}", @item.PriceProduct) <span class="currency-symbol">&#160;VND</span></p>
+            </div>
+        </a>
+    </div>
+
+}

@@ -1,0 +1,12 @@
+﻿@model IEnumerable<DoAn_Web_SellClothes.Models.ProductType>
+
+    @foreach (var item in Model)
+    {
+        <li>
+            <a href="@Url.Action("SPTheoLoaiNu","Product",new { id=item.IdProductType})">
+                @item.NameProductType
+            </a>
+        </li>
+    }
+
+

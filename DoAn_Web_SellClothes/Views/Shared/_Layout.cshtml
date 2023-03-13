@@ -1,0 +1,154 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - FTeam</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Assets/css/base.css" rel="stylesheet" />
+    <link href="~/assets/css/main.css" rel="stylesheet" />
+    <link href="~/Assets/fonts/fontawesome-free-6.1.1-web/css/all.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!--Navigation-->
+    <nav class="navbar navbar-expand-md navbar-light bg-light sticky-top shadow-sm">
+        <a class="navbar-brand ml-5" href="@Url.Action("Index", "Home")">FTeam</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse text-center justify-content-end" id="navbarResponsive">
+            <ul class="navbar-nav mr-5">
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("Index", "Home")">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("ProductPage", "Product")">Product</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("About", "Home")">About</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav mr-5">
+                <li class="nav-item">
+                    <a class="nav-link search-icon" data-toggle="collapse" href="#searchBar" aria-expanded="false" aria-controls="searchBar"><i class="fa fa-search"></i></a>
+                </li>
+                @if (Session["user"] != null)
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Cart", "Cart")"><i class="fa fa-bag-shopping"></i><sup>@HttpContext.Current.Session["QuantityCart"]</sup></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#menuAccount" aria-expanded="false" aria-controls="menuAccount"><i class="fa fa-user"></i></a>
+                    </li>
+                }
+            </ul>
+            <ul class="navbar-nav mr-5">
+                @if (Session["user"] == null)
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Login", "Account")">Login</a>
+                    </li>
+                }
+            </ul>
+
+
+        </div>
+    </nav>
+    <!--Thanh tiềm kiếm-->
+    <div id="searchBar" class="collapse">
+        <form method="get" action="~/Product/ProductPage" class="search-bar mx-auto mb-2 mt-1">
+            <input type="text" placeholder="Search product" name="keyword" required />
+            <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
+    </div>
+    <!--Hết Thanh tiềm kiếm-->
+    <!--Nút scroll ont top-->
+    <div id="progress">
+        <span id="progress-value"><i class="fa-solid fa-arrow-up"></i></span>
+    </div>
+    <!--Hết nút scroll on top-->
+    <!--Menu tài khoản khi đăng nhập-->
+    <div class="collapse " id="menuAccount">
+        <div class="py-2 px-5 text-right">
+            <a href="@Url.Action("AccountInformation","Account")">Xin chào!, @Html.Action("_User", "Account")</a>
+            <a href="@Url.Action("History","History")">History</a>
+            <a href="@Url.Action("LogOut","Account")">Logout</a>
+        </div>
+    </div>
+    <!--Hết Menu tài khoản khi đăng nhập-->
+    <!--End-Navigation-->
+    <!--Body-->
+    <div>
+        @if (TempData["AlertMessage"] != null)
+        {
+            <div id="AlerBox" class="alert @TempData["AlertType"]">
+                @TempData["AlertMessage"]
+            </div>
+        }
+
+        @RenderBody()
+    </div>
+
+    <!--End-body-->
+    <!-- Messenger Plugin chat Code -->
+    <div id="fb-root"></div>
+
+    <!-- Your Plugin chat code -->
+    <div id="fb-customer-chat" class="fb-customerchat">
+    </div>
+
+    <script>
+        var chatbox = document.getElementById('fb-customer-chat');
+        chatbox.setAttribute("page_id", "111391104951893");
+        chatbox.setAttribute("attribution", "biz_inbox");
+    </script>
+
+    <!-- Your SDK code -->
+    <script>
+        window.fbAsyncInit = function () {
+            FB.init({
+                xfbml: true,
+                version: 'v14.0'
+            });
+        };
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+
+    <!--Footer-->
+    <footer>
+        <div class="container-fluid padding">
+            <div class="row">
+                <div class="col-md-4 mx-auto text-center">
+                    <h1>FTeam</h1>
+                    <p>Fashion is like the breath of life every day and it always changes with the flow of events. You can even see a revolutionary approach in clothing. You can see and feel everything with fashion.</p>
+                    <strong>Contact info</strong>
+                    <p>+84-399-128-713<br />fteam@gmail.com</p>
+                    <a href="#" target="_blank"> <i class="fab fa-facebook-square"></i></a>
+                    <a href="#" target="_blank"> <i class="fab fa-twitter-square"></i></a>
+                    <a href="#" target="_blank"> <i class="fab fa-instagram-square"></i></a>
+                </div>
+                <div class="col-10 mx-auto text-center">
+                    <hr class="light" />
+                    <p>Copyright @DateTime.Now.Year All rights Reserved. Design by FTeam</p>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+    <!--End-footer-->
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Assets/js/base.js"></script>
+    <script src="~/Assets/js/main.js"></script>
+</body>
+</html>

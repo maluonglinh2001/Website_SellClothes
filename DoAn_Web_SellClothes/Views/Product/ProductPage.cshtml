@@ -1,0 +1,76 @@
+﻿@using DoAn_Web_SellClothes.Models
+@using PagedList.Mvc
+@model PagedList.PagedList<Product>
+@{
+    ViewBag.Title = "ProductPage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb ">
+            <li class="breadcrumb-item ml-5"> <a href="@Url.Action("Index", "Home")">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Product</li>
+        </ol>
+    </nav>
+
+    <div class="narrow text-left">
+        <div class="col-12">
+            <h3 class="heading">Product</h3>
+            <div class="heading-underline mr-auto ml-5"></div>
+        </div>
+
+        <div class="row text-center">
+            <div class="col-lg-3">
+
+                <nav class="sidebar">
+                    <div class="text">Category</div>
+                    <ul>
+                        <li>
+                            <a href="#" class="men-btn">
+                                Men <span class="fas fa-caret-down first"></span>
+                            </a>
+                            <ul class="men-show">
+                                @Html.Action("SanPhamNam", "Product")
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#" class="women-btn">
+                                Women
+                                <span class="fas fa-caret-down second"></span>
+                            </a>
+                            <ul class="women-show">
+                                @Html.Action("SanPhamNu", "Product")
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-lg-9">
+                <div class="row">
+                    @foreach (var sanpham in Model)
+                    {
+                        <div class="col-md-6 col-lg-4">
+                            <a class="card" href="@Url.Action("ProductDetails","Product" ,new { id=sanpham.IdProduct})">
+                                <img src="~/Assets/img/Clothes/@sanpham.ImageProduct" alt="@sanpham.NameProduct">
+                                <div class="card-body">
+                                    <p class="name-product card-title"> @sanpham.NameProduct</p>
+                                    <p class="price-product card-text">@String.Format("{0:0,0}", @sanpham.PriceProduct)<span class="currency-symbol">&#160;VND</span></p>
+                                </div>
+                            </a>
+                        </div>
+                    }
+                </div>
+                @if (@Session["keysearch"] == null)
+                {
+                    <div class="MenuPage text-left">
+                        Trang @(Model.PageCount<Model.PageNumber?0:Model.PageNumber)/@Model.PageCount
+                        <div class="MenuTrang text-center">
+                            @Html.PagedListPager(Model, page => Url.Action("ProductPage", new { page = page }))
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+

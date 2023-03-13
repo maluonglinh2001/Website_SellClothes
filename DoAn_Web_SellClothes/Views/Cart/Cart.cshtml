@@ -1,0 +1,103 @@
+﻿@using DoAn_Web_SellClothes.Models
+@model List<Giohang>
+@{
+    ViewBag.Title = "Cart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="cart-container">
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="row">
+                <div class="col-12">
+                    <div class="table-cart table-responsive">
+                        <table class="table text-center">
+                            <thead>
+                                <tr>
+                                    <th>&nbsp;</th>
+                                    <th>&nbsp;</th>
+                                    <th class="text-left">Product</th>
+                                    <th>Size</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    int subtotal = item.iQuantityProduct * item.iPriceProduct;
+                                    <form action="/Cart/UpdateItemInCart?iProductId=@item.iIdProduct&iSizeId=@item.iSize" method="post" name="product_@item.iIdProduct">
+                                        <tr>
+                                            <td class="product-remove text-center">
+                                                <a href="/Cart/RemoveItemInCart?iProductId=@item.iIdProduct&iSizeId=@item.iSize">
+                                                    <i class="fa-solid fa-xmark"></i>
+                                                </a>
+                                            </td>
+                                            <td class="product-thumbnail text-left">
+                                                <img src="/Assets/img/Clothes/@item.iImageProduct"
+                                                     alt="AoSoMiNamTayDaiLuaDo.jpg" width="100">
+                                            </td>
+                                            <td class="product-name text-left">
+                                                <a href="/Product/ProductDetails/@item.iIdProduct">@item.iNameProduct</a>
+                                            </td>
+                                            <td class="product-size">
+                                                @item.iSizeProduct
+                                            </td>
+                                            <td class="product-price">
+                                                @String.Format("{0:0,0}", @item.iPriceProduct)<span>đ</span>
+                                            </td>
+
+                                            <td class="product-quantity">
+                                                <input type="number" name="quantity1" class="quantity-input" value="@item.iQuantityProduct" min="1" max="@item.iMaxAmount">
+                                                <input type="submit" value="Update Cart" class="btn-updatecart" />
+                                            </td>
+
+                                            <td class="product-total-price">
+                                                <strong>@String.Format("{0:0,0}", @subtotal)<span>đ</span></strong>
+                                            </td>
+                                        </tr>
+                                    </form>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="my-4 px-3">
+                <a href="@Url.Action("RemoveCart","Cart")">Clear Cart</a>
+            </div>
+
+        </div>
+        <div class="col-lg-4">
+            <div class="cart-collaterals">
+                <div class="cart-totals">
+                    <h5 class="mb-4">Thành tiền</h5>
+                    <div class="table-content table-responsive">
+                        <table class="table order-table">
+                            <tbody>
+                                <tr>
+                                    <th>Tổng tiền sản phẩm</th>
+                                    <td>@String.Format("{0:0,0}", @ViewBag.TongTien)<span>đ</span></td>
+                                </tr>
+                                <tr>
+                                    <th>Phí vận chuyển</th>
+                                    <td>25,000<span>đ</span></td>
+                                </tr>
+                                <tr class="order-total border-top">
+                                    <th>Tổng tiền</th>
+                                    <td>
+                                        @String.Format("{0:0,0}", @ViewBag.TongTienShip)<span>đ</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <a href="@Url.Action("Checkout","Cart")" class="btn btn-checkout" type="submit">
+                    Proceed To Checkout
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

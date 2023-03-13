@@ -1,0 +1,81 @@
+﻿@using DoAn_Web_SellClothes.Models
+@model IEnumerable<DoAn_Web_SellClothes.Models.Invoice>
+@{
+    ViewBag.Title = "History";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class=" history-container ">
+    <div class="table-content table-responsive">
+        <h2 class="mb-5">Lịch sử mua hàng</h2>
+        <table class="table text-center">
+            <thead class="border-bottom text-left">
+                <tr>
+                    <th>Mã đơn hàng</th>
+                    <th>Ngày mua</th>
+                    <th>Tên khách hàng</th>
+                    <th>Địa chỉ giao hàng</th>
+                    <th>Số điện thoại</th>
+                    <th>Trạng thái đơn hàng</th>
+                    <th>Hình thức thanh toán</th>
+                    <th>Trạng thái thanh toán</th>
+                    <th>Tổng tiền</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+
+            <tbody class="text-left">
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="bill-id">
+                            @item.IdInvoice
+                        </td>
+                        <td class="bill-date ">
+                            @item.InvoiceDate
+                        </td>
+                        <td class="bill-nameCustomer">
+                            @item.InvoiceNameReceiver
+                        </td>
+                        <td class="bill-addressCustomer">
+                            @item.InvoiceAddressReceiver
+                        </td>
+                        <td class="bill-phone">
+                            @item.InvoicePhoneReceiver
+                        </td>
+                        <td class="bill-payment">
+                        @if (item.StatusInvoice == false)
+                        {
+                            <p>Chưa xác nhận</p>
+                        }
+                        else if (item.StatusInvoice == true)
+                        {
+                            <p>Đã xác nhận</p>
+                        }
+                        </td>
+                        <td class="bill-payment">
+                            @item.PaymentsInvoice
+                        </td>
+                        <td class="bill-statusPayment">
+                        @if (item.Paid == false)
+                        {
+                            <p>Chưa thanh toán</p>
+                        }
+                        else if(item.Paid==true)
+                        {
+                            <p>Đã thanh toán</p>
+                        }
+                        </td>
+                        <td class="bill-total">
+                            @String.Format("{0:0,0}", @item.TotalInvoice)<span> VNĐ</span>
+                        </td>
+                        <td class="bill-details">
+                            <a href="@Url.Action("HistoryDetails", "History",new {idInvoice=item.IdInvoice })">View details</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
